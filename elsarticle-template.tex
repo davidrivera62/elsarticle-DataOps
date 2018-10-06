@@ -1,9 +1,11 @@
 \documentclass[review]{elsarticle}
 
 \usepackage{lineno,hyperref}
+\usepackage[utf8]{inputenc}
 \modulolinenumbers[5]
 
 \journal{Journal of \LaTeX\ Templates}
+\DeclareUnicodeCharacter{2060}{\nolinebreak}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Elsevier bibliography styles
@@ -44,27 +46,20 @@
 \title{An Approach to a Modern Definition of DataOps}
 
 %% Group authors per affiliation:
-\author{Elsevier\fnref{myfootnote}}
-\address{Radarweg 29, Amsterdam}
-\fntext[myfootnote]{Since 1880.}
+\author[unal]{David Rivera}
+   \ead{dfriveraol@unal.edu.co}
+   \author[unal]{J. D. Velásquez}
+   \ead{jdvelasq@unal.edu.co}
 
-%% or include affiliations in footnotes:
-\author[mymainaddress,mysecondaryaddress]{Elsevier Inc}
-\ead[url]{www.elsevier.com}
+   \address[unal]{Universidad Nacional de Colombia, Sede Medellín, Colombia}
 
-\author[mysecondaryaddress]{Global Customer Service\corref{mycorrespondingauthor}}
-\cortext[mycorrespondingauthor]{Corresponding author}
-\ead{support@elsevier.com}
-
-\address[mymainaddress]{1600 John F Kennedy Boulevard, Philadelphia}
-\address[mysecondaryaddress]{360 Park Avenue South, New York}
 
 \begin{abstract}
 The application of agile methodologies and the continuous practices of DevOps are used in analytical projects, seeking to present the results of the data models developed in a faster way, with greater control of the construction process and with higher quality. This has meant that both the agile development processes are adjusted to the needs of the analytical projects and the engineers and data scientists have adjusted their tools and infrastructure to these practices to receive the expected benefits. This review explores the availability with respect to previous works in the fields of Data Science supported by DevOps practices, how processes and development flows should be modeled under these practices, and finally, contrast these bases with visions both academic and industry about this methodology that has been called \textit{DataOps}\textit{}
 \end{abstract}
 
 \begin{keyword}
-\texttt{Data Science}\sep DevOps\sep DataOps \sep Analytics
+Data Science\sep DevOps\sep DataOps \sep Analytics
 \MSC[2010] 00-01\sep  99-00
 \end{keyword}
 
@@ -72,25 +67,42 @@ The application of agile methodologies and the continuous practices of DevOps ar
 
 \linenumbers
 
-\section{The Elsevier article class}
+\section{INTRODUCCIÓN}
 
-\paragraph{Installation} If the document class \emph{elsarticle} is not available on your computer, you can download and install the system package \emph{texlive-publishers} (Linux) or install the \LaTeX\ package \emph{elsarticle} using the package manager of your \TeX\ installation, which is typically \TeX\ Live or Mik\TeX.
+Desde la publicación del manifiesto ágil  \cite{Beedle2001}, la tendencia de desarrollo de las fábricas de software y las compañías que construyen sus propias aplicaciones de software se han debatido entre el desarrollo tradicional, y las metodologías de desarrollo ágil, basadas en marcos de trabajo como Scrum y XP, que buscan con cada iteración entregar nuevas funcionalidades, desplegar con mayor frecuencia y en menor tiempo \cite{Szalvay2004}. Con este mismo objetivo las áreas que soportan y mantienen la infraestructura operativa deben responder: con agilidad y flexibilidad a los cambios. Es así como surge el marco de trabajo DevOps \cite{Humble}, como la práctica de los ingenieros de desarrollo y operaciones participando de manera conjunta \cite{Sacks2012} en todo el ciclo de vida del servicio, aplicaciones o producto desarrollado; desde su diseño a través de la construcción hasta el soporte en producción.
 
-\paragraph{Usage} Once the package is properly installed, you can use the document class \emph{elsarticle} to create a manuscript. Please make sure that your manuscript follows the guidelines in the Guide for Authors of the relevant journal. It is not necessary to typeset your manuscript in exactly the same way as an article, unless you are submitting to a camera-ready copy (CRC) journal.
+En paralelo, se ha desarrollado desde la analítica de datos una metodología para el diseño, construcción y presentación de productos de los proyectos de analítica. CRISP-DM, desarrollado por IBM en 1994, ha demostrado ser el método más usado y reconocido para la minería de datos \cite{Piatetsky2014} y tal como sucedió con los métodos de desarrollo tradicionales, presenta falencias que deben ser solventadas por los desarrolladores de los productos en los proyectos de analítica \cite{Taylor2017}. En respuesta a esta situación, han surgido desde la industria y la academia propuestas de analítica bajo metodologías ágiles, donde se tiene como objetivo tener un punto óptimo entre el valor generado desde los datos y el tiempo para obtenerlo \cite{Grady2017}, siguiendo los pasos fundamentales trazados desde CRISP-DM \cite{Chapman2000}.
 
-\paragraph{Functionality} The Elsevier article class is based on the standard article class and supports almost all of the functionality of that class. In addition, it features commands and options to format the
+Los equipos de científicos de datos podrían con éxito cumplir con los requerimientos de negocio respecto a una entrega rápida, frecuente y con calidad de sus productos de analítica de datos. Lo anterior utilizando un enfoque de herramientas y procesos basados en DevOps \cite{Bergh2017}⁠, que se toma innovaciones en procesos ágiles, a lo que se llama actualmente en la industria \textit{DataOps}.
+
+Partiendo entonces desde la integración de las practicas ágiles de DevOps, se trata de establecer la siguiente pregunta de investigación:
+
+\textbf{RQ1}: ¿Cómo se integra DevOps en un proyecto de analítica?
+
+Se propone responderla a través de las preguntas derivadas:
+
 \begin{itemize}
-\item document style
-\item baselineskip
-\item front matter
-\item keywords and MSC codes
-\item theorems, definitions and proofs
-\item lables of enumerations
-\item citation style and labeling.
+\item RQ1.1. Cómo se aplica las metodologías ágiles a los proyectos de analítica
+\item RQ1.2. Cómo se integran las practicas continuas en los proyectos de analítica
+\item RQ1.3. Cómo se modela un pipeline para un proyecto de analítica
+\item RQ1.4. Como se debe modelar un proceso para un proyecto de analítica, teniendo como referencia las etapas sugeridas por CRISP-DM y las prácticas continuas de DevOps
 \end{itemize}
 
-\section{Front matter}
+Y desde las respuestas encontradas, contrastar con las definiciones encontradas en los miembros de industria la siguiente pregunta de investigación
 
+\textbf{RQ2}: ¿Qué es \textit{DataOps}?
+
+La estructura de este trabajo es la siguiente: en la Sección II se presenta el contexto de DevOps y los proyectos de analítica, describiendo los conceptos, las herramientas empleadas para aplicar las prácticas continuas, el actual estado del arte, métricas usadas y los conceptos alrededor de lo que compone un proyecto de analítica; en la Sección III se muestran la metodología de investigación usada, en la Sección IV se discuten los resultados obtenidos y finalmente se presenta en la Sección V las conclusiones obtenidas del proceso. La bibliografía incluida en este trabajo se presenta en las referencias.
+
+\section{CONTEXTO}
+\subsection{Development Operations (DevOps)}
+
+Es el proceso para el desarrollo de software que hace énfasis en la colaboración, comunicación, automatización e integración \cite{Huttermann2012}, \cite{Rangel2015}. Tiene como objetivo reducir los tiempos entre la construcción de un desarrollo y el despliegue de este en un ambiente productivo, asegurando la calidad del producto. Según una de las encuestas del sector \cite{Puppet2017}, se entiende DevOps para un conjunto de prácticas culturales que han demostrado entregarle valor a las organizaciones, sin importar su tamaño, a mejorar sus ciclos de liberación, calidad del software y tener una realimentación rápida del cliente final. 
+
+Debe mencionarse que las prácticas continuas de DevOps no han sido estudiadas ni documentadas científicamente [13] y muchos de los estudios encontrados en el medio carecen de calidad, sugiriendo la necesidad de realizar más investigaciones que cuantifiquen sus beneficios y efectos en los procesos de desarrollo. Estas están compuestas por: cultura, control de software, Integración Continua, Despliegue y Entrega Continua, Infraestructura como código, Configuración como código, Automatización, Monitoreo Operacional [14]. De este listado se define los términos más representativos del proceso:
+
+
++++++++++++++++++++++++++++++++++++
 The author names and affiliations could be formatted in two ways:
 \begin{enumerate}[(1)]
 \item Group the authors per affiliation.
@@ -102,7 +114,6 @@ See the front matter of this document for examples. You are recommended to confo
 
 There are various bibliography styles available. You can select the style of your choice in the preamble of this document. These styles are Elsevier styles based on standard styles like Harvard and Vancouver. Please use Bib\TeX\ to generate your bibliography and include DOIs whenever available.
 
-Here are two sample references: \cite{Feynman1963118,Dirac1953888}.
 
 \section*{References}
 
